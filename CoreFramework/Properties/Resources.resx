@@ -117,4 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CreateMasterTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateMasterTable.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CreateProdTrans" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateProdTrans.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CreateSettingsTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateSettingsTable.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CreateSPGetters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateSPGetters.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CreateSPInsert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateSPInsert.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CreateFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateFunction.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;iso-8859-1</value>
+  </data>
+  <data name="CreateReports" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CreateReports.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="AddInitialData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AddInitialData.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="InitializeSQLUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InitializeSQLUser.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Database_version" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Database_version.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="AlterDatabase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AlterDatabase.sql;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DatabaseUpdateDetails" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DatabaseUpdateDetails.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>

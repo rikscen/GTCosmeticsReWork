@@ -1,0 +1,4 @@
+CREATE PROCEDURE [dbo].[sp_GLOBAL_UpdateTransaction]
+<limiter>
+ALTER PROCEDURE [dbo].[sp_REPORT_InsertElectronicStockard]
+<limiter>
