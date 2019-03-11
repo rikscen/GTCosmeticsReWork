@@ -150,7 +150,7 @@ namespace VGLHelper.CustomControls
         /// <summary>
         /// Selected tab text color
         /// </summary>
-        public Color selectedTextColor = Color.FromArgb(255, 255, 255);
+        private Color selectedTextColor = Color.FromArgb(255, 255, 255);
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -226,7 +226,7 @@ namespace VGLHelper.CustomControls
                     using (var b = new SolidBrush(TabTextColor))
                     {
                         b.Color = InactiveTabColor;
-                        Drawer.FillRectangle(b, HeaderSize.X, HeaderSize.Y + 5, HeaderSize.Width - 5, HeaderSize.Height);
+                        Drawer.FillRectangle(b, HeaderSize.X, HeaderSize.Y + 5, HeaderSize.Width - 10F, HeaderSize.Height);
                         //Drawer.DrawString(TabPages[i].Text, Font, b, HeaderSize, CenterStringFormat);
                         b.Color = TabTextColor;
                         TextRenderer.DrawText(Drawer, TabPages[i].Text, TabPages[i].Font, HeaderSize, TabTextColor, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
@@ -251,7 +251,7 @@ namespace VGLHelper.CustomControls
             //Tab Control Border
             using (var b = new SolidBrush(SelectedTabColor))
             {
-                Drawer.FillRectangle(b, new Rectangle(0, ItemSize.Height - 3, Width, Height));
+                Drawer.FillRectangle(b, new Rectangle(0, ItemSize.Height - 5, Width, Height));
             }
 
             //Drawer.InterpolationMode = InterpolationMode.HighQualityBicubic;

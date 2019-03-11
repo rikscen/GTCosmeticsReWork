@@ -1,6 +1,7 @@
 ﻿using GTCosmeticsReWork.Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -188,7 +189,7 @@ public static class ExtensionMethods
             datagridview.ColumnHeadersHeight = 50;
             datagridview.BackgroundColor = ColorTranslator.FromHtml(ACCENT);
             datagridview.EnableHeadersVisualStyles = false;
-            datagridview.AllowUserToAddRows = false;
+            //datagridview.AllowUserToAddRows = false;
             datagridview.DoubleBuffered(true);
         }
     }
@@ -213,5 +214,25 @@ public static class ExtensionMethods
         privateFontCollection.AddMemoryFont(fontPtr, dataLength);
 
         return privateFontCollection.Families.Last();
+    }
+
+    public static ComboBox SetComboBox(this ComboBox cb, DataTable source, string displayMember, string valueMember)
+    {
+        cb.DisplayMember = displayMember;
+        cb.ValueMember = valueMember;
+        cb.DataSource = source;
+        cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+        cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+        cb.SelectedIndex = -1;
+        return cb;
+    }
+
+    public static DataGridViewComboBoxColumn SetDataGridViewComboBox(this DataGridViewComboBoxColumn cb, DataTable source, string displayMember, string valueMember)
+    {
+        cb.DisplayMember = displayMember;
+        cb.ValueMember = valueMember;
+        cb.DataSource = source;
+        cb.DropDownWidth = 50;
+        return cb;
     }
 }
