@@ -26,6 +26,7 @@ namespace GTCosmeticsReWork.MasterFile
             //lblTitle.MouseMove += ExtensionMethods.Title_MouseMove;
             grdProduct.RowPostPaint += ExtensionMethods.AddDatagridViewRowHeaderNumber;
             grdProduct.CellPainting += EventHandlers.Grid_CellPainting;
+            grdUom.CellPainting += EventHandlers.Grid_CellPainting;
             grdUom.EditingControlShowing += GrdUom_EditingControlShowing;
             grdUom.DataError += GrdUom_DataError;
 
@@ -121,33 +122,36 @@ namespace GTCosmeticsReWork.MasterFile
             colUom.Name = "Uom";
             colUom.HeaderText = "Unit Of Measure";
             colUom.DataPropertyName = "Uom";
+            colUom.Width = 150;
             colUom.FlatStyle = FlatStyle.Flat;
-            var dt = DataSupport.ExecuteStoredProcedure("sp_getuoms", null);
-            colUom.SetDataGridViewComboBox(dt, "Uom", "Id");
+            //var dt = DataSupport.ExecuteStoredProcedure("sp_getuoms", null);
+            //colUom.SetDataGridViewComboBox(dt, "Uom", "Id");
             grdUom.Columns.Add(colUom);
 
             var colUomDesc = new DataGridViewTextBoxColumn();
             colUomDesc.Name = "UomDescr";
             colUomDesc.HeaderText = "Description";
             colUomDesc.DataPropertyName = "Description";
+            colUomDesc.Width = 300;
             grdUom.Columns.Add(colUomDesc);
 
             var colUomBarcode = new DataGridViewTextBoxColumn();
             colUomBarcode.Name = "UomBarcode";
             colUomBarcode.HeaderText = "Barcode";
             colUomBarcode.DataPropertyName = "Barcode";
+            colUomBarcode.Width = 200;
             grdUom.Columns.Add(colUomBarcode);
 
-            grdUom.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //grdUom.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             #endregion UOM Grid
         }
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
-            LoadData();
-            var dt = DataSupport.ExecuteStoredProcedure("sp_getproductcategories", null);
-            cbCategory.SetComboBox(dt, "Category", "Id");
+            //LoadData();
+            // var dt = DataSupport.ExecuteStoredProcedure("sp_getproductcategories", null);
+            //cbCategory.SetComboBox(dt, "Category", "Id");
         }
 
         private void LoadData()

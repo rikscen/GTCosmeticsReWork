@@ -180,7 +180,6 @@
             // 
             // grdUom
             // 
-            this.grdUom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdUom.Dock = System.Windows.Forms.DockStyle.Top;
             this.grdUom.Location = new System.Drawing.Point(3, 108);
             this.grdUom.Name = "grdUom";

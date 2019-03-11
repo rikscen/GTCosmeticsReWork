@@ -188,6 +188,7 @@ public static class ExtensionMethods
             datagridview.RowTemplate.Height = 40;
             datagridview.ColumnHeadersHeight = 50;
             datagridview.BackgroundColor = ColorTranslator.FromHtml(ACCENT);
+            datagridview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             datagridview.EnableHeadersVisualStyles = false;
             //datagridview.AllowUserToAddRows = false;
             datagridview.DoubleBuffered(true);
