@@ -8,13 +8,13 @@ using System.Data;
 
 namespace CoreFramework
 {
-
     public class DBTable
     {
         public String table { get; set; }
         public List<String> columns;
         public Dictionary<String, String> insert_list;
         public List<String> primary_keys;
+
         public DBTable(String table, Dictionary<String, String> aliases, List<String> primary_keys)
         {
             this.table = table;
@@ -22,6 +22,7 @@ namespace CoreFramework
             this.columns = aliases.Keys.ToList();
             this.primary_keys = primary_keys;
         }
+
         public Dictionary<String, String> GetPrimaryValues()
         {
             Dictionary<String, String> result = new Dictionary<String, String>();
@@ -37,6 +38,7 @@ namespace CoreFramework
         }
 
         #region Generate DB Scripts Methods
+
         public String GenerateFilter(Dictionary<String, String> primary_values)
         {
             String result = "";
@@ -102,12 +104,10 @@ namespace CoreFramework
         {
             CleanDictionaries(insertList);
 
-
             String result = "INSERT INTO ";
             char[] delim = { ' ' };
             result += table.Split(delim)[0] + "(";
             List<String> insertColumns = insertList.Keys.ToList();
-
 
             for (int i = 0; i < insertColumns.Count; i++)
             {
@@ -209,8 +209,7 @@ namespace CoreFramework
         }
 
         //private static String GetDataExist()
-        //{ 
-        
+        //{
         //}
         public String GenerateCreateUpdate(Dictionary<String, String> valueList, Dictionary<String, String> primary_values)
         {
@@ -221,7 +220,6 @@ namespace CoreFramework
         {
             String result = "";
             char[] delim = { ' ' };
-
 
             // CleanDictionaries(valueList);
             result += String.Format(@"IF EXISTS (SELECT TOP 1 * FROM {0} {1})
@@ -235,11 +233,11 @@ namespace CoreFramework
 
             return result;
         }
+
         public String GenerateCreateUpdateTabulation(Dictionary<String, String> insertList, Dictionary<String, String> updateList, Dictionary<String, String> primary_values)
         {
             String result = "";
             char[] delim = { ' ' };
-
 
             // CleanDictionaries(valueList);
             result += String.Format(@"IF EXISTS (SELECT TOP 1 * FROM {0} {1})
@@ -253,7 +251,7 @@ namespace CoreFramework
 
             return result;
         }
-        
+
         public static void CleanDictionaries(Dictionary<String, String> dict)
         {
             List<String> for_delete = new List<String>();
@@ -269,7 +267,6 @@ namespace CoreFramework
             }
         }
 
-        #endregion
-
+        #endregion Generate DB Scripts Methods
     }
 }

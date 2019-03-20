@@ -40,14 +40,14 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.tpAdd = new System.Windows.Forms.TabPage();
             this.grdUom = new VGLHelper.CustomControls.vglDataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtProductCode = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tc.SuspendLayout();
             this.tpProduct.SuspendLayout();
@@ -93,7 +93,6 @@
             this.tc.BorderColor = System.Drawing.Color.Empty;
             this.tc.Controls.Add(this.tpProduct);
             this.tc.Controls.Add(this.tpAdd);
-            this.tc.Controls.Add(this.tabPage1);
             this.tc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tc.InactiveTabColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(75)))), ((int)(((byte)(160)))));
             this.tc.ItemSize = new System.Drawing.Size(150, 50);
@@ -108,6 +107,7 @@
             // 
             // tpProduct
             // 
+            this.tpProduct.BackColor = System.Drawing.Color.White;
             this.tpProduct.Controls.Add(this.grdProduct);
             this.tpProduct.Controls.Add(this.panel2);
             this.tpProduct.Location = new System.Drawing.Point(4, 54);
@@ -116,7 +116,6 @@
             this.tpProduct.Size = new System.Drawing.Size(1014, 501);
             this.tpProduct.TabIndex = 0;
             this.tpProduct.Text = "Product List";
-            this.tpProduct.UseVisualStyleBackColor = true;
             // 
             // grdProduct
             // 
@@ -124,6 +123,7 @@
             this.grdProduct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdProduct.Location = new System.Drawing.Point(3, 65);
             this.grdProduct.Name = "grdProduct";
+            this.grdProduct.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdProduct.Size = new System.Drawing.Size(1008, 433);
             this.grdProduct.TabIndex = 1;
             // 
@@ -146,7 +146,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(142, 52);
             this.btnAdd.TabIndex = 4;
-            this.btnAdd.Text = "Add Product";
+            this.btnAdd.Text = "Add SKU";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -168,7 +168,9 @@
             // 
             // tpAdd
             // 
+            this.tpAdd.BackColor = System.Drawing.Color.White;
             this.tpAdd.Controls.Add(this.grdUom);
+            this.tpAdd.Controls.Add(this.btnSave);
             this.tpAdd.Controls.Add(this.panel3);
             this.tpAdd.Location = new System.Drawing.Point(4, 54);
             this.tpAdd.Name = "tpAdd";
@@ -176,7 +178,6 @@
             this.tpAdd.Size = new System.Drawing.Size(1014, 501);
             this.tpAdd.TabIndex = 1;
             this.tpAdd.Text = "Add SKU";
-            this.tpAdd.UseVisualStyleBackColor = true;
             // 
             // grdUom
             // 
@@ -184,17 +185,28 @@
             this.grdUom.Dock = System.Windows.Forms.DockStyle.Top;
             this.grdUom.Location = new System.Drawing.Point(3, 108);
             this.grdUom.Name = "grdUom";
-            this.grdUom.Size = new System.Drawing.Size(1008, 327);
-            this.grdUom.TabIndex = 3;
+            this.grdUom.Size = new System.Drawing.Size(1008, 332);
+            this.grdUom.TabIndex = 6;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(869, 446);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(142, 52);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.cbCategory);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.textBox2);
+            this.panel3.Controls.Add(this.txtDescription);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtProductCode);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
@@ -203,6 +215,7 @@
             // 
             // cbCategory
             // 
+            this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategory.FormattingEnabled = true;
             this.cbCategory.Location = new System.Drawing.Point(131, 70);
             this.cbCategory.Name = "cbCategory";
@@ -227,12 +240,13 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Description";
             // 
-            // textBox2
+            // txtDescription
             // 
-            this.textBox2.Location = new System.Drawing.Point(131, 36);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(360, 27);
-            this.textBox2.TabIndex = 0;
+            this.txtDescription.Location = new System.Drawing.Point(131, 36);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(360, 27);
+            this.txtDescription.TabIndex = 0;
+            this.txtDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescription_KeyPress);
             // 
             // label2
             // 
@@ -243,22 +257,13 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Product Code";
             // 
-            // textBox1
+            // txtProductCode
             // 
-            this.textBox1.Location = new System.Drawing.Point(131, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(360, 27);
-            this.textBox1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 54);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1014, 501);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.txtProductCode.Location = new System.Drawing.Point(131, 3);
+            this.txtProductCode.Name = "txtProductCode";
+            this.txtProductCode.Size = new System.Drawing.Size(360, 27);
+            this.txtProductCode.TabIndex = 0;
+            this.txtProductCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
             // 
             // ProductForm
             // 
@@ -302,13 +307,13 @@
         private System.Windows.Forms.TabPage tpProduct;
         private System.Windows.Forms.TabPage tpAdd;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtProductCode;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.ComboBox cbCategory;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnSave;
         private VGLHelper.CustomControls.vglDataGridView grdUom;
-        private System.Windows.Forms.TabPage tabPage1;
     }
 }

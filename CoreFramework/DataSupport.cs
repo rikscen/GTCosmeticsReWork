@@ -19,12 +19,8 @@ namespace CoreFramework
         /// Gets the a SQL Connection From the Configuration File
         /// </summary>
         //public static String connectString = @"Server=tcp:excelcare.database.windows.net,1433;Initial Catalog=excelcare;Persist Security Info=False;User ID=stevenlava;Password=Biasong1989;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-        private static String _connectString;
 
-        //public static String connectString = @"Server=CABELLON\SQLEXPRESS;Integrated security=SSPI;database=master";
-        public String _ConnectionString { get { return _connectString; } set { _connectString = value; } }
-
-        public static SqlConnection Connection { get { return new SqlConnection(_connectString); } }
+        private static SqlConnection Connection { get; set; } = new SqlConnection();
 
         /// <summary>
         /// Sets the Global Connection to the Database to Test Mode. Test Mode would not commit anything to the database and any query under this mode will be Rolled Back.
@@ -109,7 +105,7 @@ namespace CoreFramework
             {
                 // If it's not test mode, open the connection, test mode connection is already open
                 if (TestSQLTransaction == null)
-                    conn.Open();
+                    Connection.Open();
 
                 SqlCommand command = conn.CreateCommand();
                 if (TestSQLTransaction != null)
@@ -133,7 +129,7 @@ namespace CoreFramework
             {
                 // If it's not test mode, close the connection, test mode connections will be closed automatically
                 if (TestSQLTransaction == null)
-                    SqlConnection.ClearAllPools(); conn.Close();
+                    SqlConnection.ClearAllPools(); Connection.Close();
             }
 
             return result;
@@ -160,7 +156,7 @@ namespace CoreFramework
             {
                 // If it's not test mode, open the connection, test mode connection is already open
                 if (TestSQLTransaction == null)
-                    conn.Open();
+                    Connection.Open();
 
                 SqlCommand command = conn.CreateCommand();
                 if (TestSQLTransaction != null)
@@ -186,7 +182,7 @@ namespace CoreFramework
             {
                 // If it's not test mode, close the connection, test mode connections will be closed automatically
                 if (TestSQLTransaction == null)
-                    SqlConnection.ClearAllPools(); conn.Close();
+                    SqlConnection.ClearAllPools(); Connection.Close();
             }
 
             return result;
@@ -210,33 +206,20 @@ namespace CoreFramework
         /// <param name="parameters">Paramters of the Query</param>
         /// <returns># of rows affected</returns>
         public static int RunNonQuery(String sql, Dictionary<String, Object> parameters)
-
         {
-            if (IsUnitTest() && !IsTestMode())
-                throw new AccessViolationException();
             int result = -1;
             // In order to write, you need a connection and a transaction for rollback or commit purposes
-            SqlConnection conn = null;
             SqlTransaction trans = null;
-
-            // If it's test mode, use the test connection, otherwise, create a new connection
-            if (TestSQLConnection != null)
-                conn = TestSQLConnection;
-            else
-                conn = Connection;
-            // If it's test mode, use the test transaction
-            if (TestSQLTransaction != null)
-                trans = TestSQLTransaction;
             try
             {
                 // If it's not test mode, open the connection, test mode connection is already open
                 if (TestSQLTransaction == null)
-                    conn.Open();
+                    Connection.Open();
                 // If it's not test mode, create a new transaction, test mode transaction is already created
                 if (TestSQLTransaction == null)
-                    trans = conn.BeginTransaction();
+                    trans = Connection.BeginTransaction();
 
-                SqlCommand command = new SqlCommand(sql, conn);
+                SqlCommand command = new SqlCommand(sql, Connection);
                 //SqlCommand command = conn.CreateCommand();
                 command.Transaction = trans;
                 command.CommandText = sql;
@@ -265,7 +248,7 @@ namespace CoreFramework
             {
                 // If it's not test mode, close the connection, test mode connections will be closed automatically
                 if (TestSQLTransaction == null)
-                    SqlConnection.ClearAllPools(); conn.Close();
+                    SqlConnection.ClearAllPools(); Connection.Close();
             }
 
             return result;
@@ -273,31 +256,16 @@ namespace CoreFramework
 
         public static DataTable ExecuteStoredProcedure(String ProcedureName, Dictionary<String, Object> parameters)
         {
-            if (IsUnitTest() && !IsTestMode())
-                throw new AccessViolationException();
             DataSet result = new DataSet();
             // In order to write, you need a connection and a transaction for rollback or commit purposes
-            SqlConnection conn = null;
             SqlTransaction trans = null;
 
-            // If it's test mode, use the test connection, otherwise, create a new connection
-            if (TestSQLConnection != null)
-                conn = TestSQLConnection;
-            else
-                conn = Connection;
-            // If it's test mode, use the test transaction
-            if (TestSQLTransaction != null)
-                trans = TestSQLTransaction;
             try
             {
-                // If it's not test mode, open the connection, test mode connection is already open
-                if (TestSQLTransaction == null)
-                    conn.Open();
-                // If it's not test mode, create a new transaction, test mode transaction is already created
-                if (TestSQLTransaction == null)
-                    trans = conn.BeginTransaction();
+                Connection.Open();
+                trans = Connection.BeginTransaction();
 
-                SqlCommand command = new SqlCommand(ProcedureName, conn);
+                SqlCommand command = new SqlCommand(ProcedureName, Connection);
                 //SqlCommand command = conn.CreateCommand();
                 command.Transaction = trans;
                 command.CommandType = CommandType.StoredProcedure;
@@ -327,38 +295,128 @@ namespace CoreFramework
             {
                 // If it's not test mode, close the connection, test mode connections will be closed automatically
                 if (TestSQLTransaction == null)
-                    SqlConnection.ClearAllPools(); conn.Close();
+                    SqlConnection.ClearAllPools(); Connection.Close();
             }
             return result.Tables[0];
         }
 
-        public static int ExecuteStoredProcedureNonQuery(String ProcedureName, Dictionary<String, Object> parameters)
+        public static DataSet ExecuteStoredProcedureDataSet(String ProcedureName, Dictionary<String, Object> parameters)
         {
-            if (IsUnitTest() && !IsTestMode())
-                throw new AccessViolationException();
-            int result = -1;
+            DataSet result = new DataSet();
             // In order to write, you need a connection and a transaction for rollback or commit purposes
-            SqlConnection conn = null;
             SqlTransaction trans = null;
 
-            // If it's test mode, use the test connection, otherwise, create a new connection
-            if (TestSQLConnection != null)
-                conn = TestSQLConnection;
-            else
-                conn = Connection;
-            // If it's test mode, use the test transaction
-            if (TestSQLTransaction != null)
-                trans = TestSQLTransaction;
+            try
+            {
+                Connection.Open();
+                trans = Connection.BeginTransaction();
+
+                SqlCommand command = new SqlCommand(ProcedureName, Connection);
+                //SqlCommand command = conn.CreateCommand();
+                command.Transaction = trans;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandTimeout = 60000;
+                if (parameters != null)
+                {
+                    foreach (KeyValuePair<String, Object> kvp in parameters)
+                    {
+                        command.Parameters.AddWithValue(kvp.Key, kvp.Value);
+                    }
+                }
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(result);
+                // If it's not test mode, commit the transaction, test mode transactions are meant to be rollback
+                //if (TestSQLTransaction == null)
+                //    trans.Commit();
+            }
+            catch (SqlException)
+            {
+                result = null;
+                // If it's not test mode, rollback the transaction on error, test mode transactions will be rollbacked automatically
+                if (TestSQLTransaction == null)
+                    trans.Rollback();
+                throw;
+            }
+            finally
+            {
+                // If it's not test mode, close the connection, test mode connections will be closed automatically
+                if (TestSQLTransaction == null)
+                    SqlConnection.ClearAllPools(); Connection.Close();
+            }
+            return result;
+        }
+
+        public static int ExecuteNonQuery(String sql)
+        {
+            if (UnitTestDetector.IsInUnitTest)
+                throw new AccessViolationException();
+            int result = 0;
+            try
+            {
+                Connection.Open();
+                SqlCommand command = Connection.CreateCommand();
+                command.CommandText = sql;
+                result = command.ExecuteNonQuery();
+            }
+            catch (SqlException)
+            {
+                result = 0;
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return result;
+        }
+
+        public static object ExecuteScalar(String procedureName, Dictionary<String, Object> parameters)
+        {
+            object result = null;
+            try
+            {
+                Connection.Open();
+                SqlCommand command = new SqlCommand(procedureName, Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandTimeout = 60000;
+                if (parameters != null)
+                {
+                    foreach (KeyValuePair<String, Object> kvp in parameters)
+                    {
+                        command.Parameters.AddWithValue(kvp.Key, kvp.Value);
+                    }
+                }
+                result = command.ExecuteScalar();
+            }
+            catch (SqlException ex)
+            {
+                ex.ToString();
+                result = null;
+                throw;
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return result;
+        }
+
+        public static int ExecuteStoredProcedureNonQuery(String ProcedureName, Dictionary<String, Object> parameters)
+        {
+            int result = -1;
+            // In order to write, you need a connection and a transaction for rollback or commit purposes
+            SqlTransaction trans = null;
+
             try
             {
                 // If it's not test mode, open the connection, test mode connection is already open
                 if (TestSQLTransaction == null)
-                    conn.Open();
+                    Connection.Open();
                 // If it's not test mode, create a new transaction, test mode transaction is already created
                 if (TestSQLTransaction == null)
-                    trans = conn.BeginTransaction();
+                    trans = Connection.BeginTransaction();
 
-                SqlCommand command = new SqlCommand(ProcedureName, conn);
+                SqlCommand command = new SqlCommand(ProcedureName, Connection);
                 //SqlCommand command = conn.CreateCommand();
                 command.Transaction = trans;
                 command.CommandText = ProcedureName;
@@ -388,7 +446,7 @@ namespace CoreFramework
             {
                 // If it's not test mode, close the connection, test mode connections will be closed automatically
                 if (TestSQLTransaction == null)
-                    SqlConnection.ClearAllPools(); conn.Close();
+                    SqlConnection.ClearAllPools(); Connection.Close();
             }
 
             return result;
@@ -415,7 +473,7 @@ namespace CoreFramework
             var converted_list = ConvertToStringValues(insert_list);
             DBTable dbtable = new DBTable(table, converted_list, new List<String>());
             result = dbtable.GenerateInsert(converted_list);
-            return result;
+            return result + ";\r\n";
         }
 
         public static String GetDelete(String table, params Object[] filters)
@@ -431,20 +489,19 @@ namespace CoreFramework
             {
                 if (keys.IndexOf(key) > 0)
                     result += " AND ";
-                result += String.Format(" {0} = '{1}' ", key, filters[key]);
+                result += String.Format(" {0} = '{1}' ", key, filters[key].Replace("'", "''"));
             }
-            result += "\r\n";
             return result;
-        }
-
-        public static String GetUpsert(String table, Dictionary<String, Object> insert_list, params String[] parameters)
-        {
-            return GetUpsert(table, insert_list, parameters.ToList());
         }
 
         public static String GetUpsert(String table, Dictionary<String, Object> insert_list, List<String> primary_keys)
         {
             return GetUpsert(table, insert_list, primary_keys, null, null);
+        }
+
+        public static String GetUpsert(String table, Dictionary<String, Object> insert_list, params String[] parameters)
+        {
+            return GetUpsert(table, insert_list, parameters.ToList(), null, null);
         }
 
         public static String GetUpsert(String table, Dictionary<String, Object> insert_list, List<String> primary_keys, String compare_field, String compare_value)
@@ -461,24 +518,20 @@ namespace CoreFramework
             return result;
         }
 
-        public static String GetUpsertTabulation(String table, Dictionary<String, Object> insert_list, Dictionary<String, Object> update_list, params String[] primary_keys)
+        public static String GetUpsert(String table, Dictionary<String, Object> insert_list, List<String> primary_keys, List<String> pValue)
         {
             String result = "";
-            var converted_insert_list = ConvertToStringValues(insert_list);
-            var converted_update_list = ConvertToStringValues(update_list);
-            DBTable dbtable = new DBTable(table, converted_insert_list, primary_keys.ToList());
+            var converted_list = ConvertToStringValues(insert_list);
+            DBTable dbtable = new DBTable(table, converted_list, primary_keys);
             Dictionary<String, String> primary_values = new Dictionary<String, String>();
+            int index = 0;
             foreach (String key in primary_keys)
             {
-                primary_values.Add(key, insert_list[key].ToString());
+                primary_values.Add(key, pValue[index]);
+                index += 1;
             }
-            result += dbtable.GenerateCreateUpdateTabulation(converted_insert_list, converted_update_list, primary_values);
+            result += dbtable.GenerateCreateUpdate(converted_list, primary_values, null, null);
             return result;
-        }
-
-        public static String GetUpdate(String table, Dictionary<String, Object> insert_list, List<String> primary_keys)
-        {
-            return GetUpdate(table, insert_list, primary_keys, null, null);
         }
 
         public static String GetUpdate(String table, Dictionary<String, Object> insert_list, List<String> primary_keys, String compare_field, String compare_value)
@@ -493,6 +546,32 @@ namespace CoreFramework
             }
             result = dbtable.GenerateUpdate(converted_list, primary_values, compare_field, compare_field);
             return result;
+        }
+
+        public static String GetUpdate(String table, Dictionary<String, Object> insert_list, List<String> primary_keys, List<String> pValue)
+        {
+            String result = "";
+            var converted_list = ConvertToStringValues(insert_list);
+            DBTable dbtable = new DBTable(table, converted_list, primary_keys);
+            Dictionary<String, String> primary_values = new Dictionary<String, String>();
+            int index = 0;
+            foreach (String key in primary_keys)
+            {
+                primary_values.Add(key, pValue[index]);
+                index += 1;
+            }
+            result = dbtable.GenerateUpdate(converted_list, primary_values, null, null);
+            return result;
+        }
+
+        public static String GetUpdate(String table, Dictionary<String, Object> insert_list, params String[] parameters)
+        {
+            return GetUpdate(table, insert_list, parameters.ToList(), null, null);
+        }
+
+        public static String GetUpdate(String table, Dictionary<String, Object> insert_list, List<String> primary_keys)
+        {
+            return GetUpsert(table, insert_list, primary_keys, null, null);
         }
 
         public static String GetWhereClause(Dictionary<String, String> filters)
@@ -675,7 +754,7 @@ namespace CoreFramework
 
         public static void SetDBConnection(String connectionString)
         {
-            _connectString = connectionString;
+            Connection.ConnectionString = connectionString;
         }
 
         #region TestSupport

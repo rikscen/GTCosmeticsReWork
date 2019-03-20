@@ -57,6 +57,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -85,6 +86,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="RegistrySupport.cs" />
     <Compile Include="SecuritySupport.cs" />
     <Compile Include="Transaction\DeliveryReceiptManager.cs" />
@@ -95,6 +101,7 @@
     <Compile Include="Transaction\ReturnManager.cs" />
     <Compile Include="UIControlSupport.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="vglManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -104,6 +111,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\CreateFunction.sql" />
     <None Include="Resources\CreateMasterTable.sql" />
     <None Include="Resources\CreateProdTrans.sql" />
@@ -122,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DatabaseUpdateDetails.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

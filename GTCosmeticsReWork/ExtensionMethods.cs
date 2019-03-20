@@ -179,11 +179,12 @@ public static class ExtensionMethods
             datagridview.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             datagridview.DefaultCellStyle.SelectionBackColor = ColorTranslator.FromHtml(SECONDARY_COLOR);
             datagridview.DefaultCellStyle.SelectionForeColor = ColorTranslator.FromHtml(ACCENT);
-            datagridview.RowsDefaultCellStyle.Padding = new Padding(5, 1, 5, 1);
+            datagridview.RowsDefaultCellStyle.Padding = new Padding(10, 1, 10, 1);
             datagridview.RowsDefaultCellStyle.Font = new Font("Verdana", 12);
             datagridview.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             datagridview.RowHeadersDefaultCellStyle.BackColor = ColorTranslator.FromHtml(PRIMARY_COLOR);
             datagridview.RowHeadersDefaultCellStyle.ForeColor = ColorTranslator.FromHtml(ACCENT);
+            datagridview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             //datagridview.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
             datagridview.RowTemplate.Height = 40;
             datagridview.ColumnHeadersHeight = 50;
