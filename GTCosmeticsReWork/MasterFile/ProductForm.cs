@@ -29,11 +29,8 @@ namespace GTCosmeticsReWork.MasterFile
             //lblTitle.MouseMove += ExtensionMethods.Title_MouseMove;
             grdProduct.RowPostPaint += ExtensionMethods.AddDatagridViewRowHeaderNumber;
             grdProduct.CellPainting += EventHandlers.Grid_CellPainting;
-<<<<<<< HEAD
             grdProduct.MouseDoubleClick += GrdProduct_MouseDoubleClick;
 
-=======
->>>>>>> bb85ba528f26412ceaf0c3a4682b52fddb4df36e
             grdUom.CellPainting += EventHandlers.Grid_CellPainting;
             grdUom.EditingControlShowing += GrdUom_EditingControlShowing;
             grdUom.DataError += GrdUom_DataError;
@@ -206,17 +203,11 @@ namespace GTCosmeticsReWork.MasterFile
             colUom.Name = "Uom";
             colUom.HeaderText = "Unit Of Measure";
             colUom.DataPropertyName = "Uom";
-            colUom.Width = 150;
             colUom.FlatStyle = FlatStyle.Flat;
-<<<<<<< HEAD
             colUom.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton;
             var dt = DataSupport.ExecuteStoredProcedure("sp_getuoms", null);
             colUom.SetDataGridViewComboBox(dt, "Uom", "Id");
             colUom.Width = 150;
-=======
-            //var dt = DataSupport.ExecuteStoredProcedure("sp_getuoms", null);
-            //colUom.SetDataGridViewComboBox(dt, "Uom", "Id");
->>>>>>> bb85ba528f26412ceaf0c3a4682b52fddb4df36e
             grdUom.Columns.Add(colUom);
 
             var colUomQty = new DataGridViewTextBoxColumn();
@@ -231,11 +222,7 @@ namespace GTCosmeticsReWork.MasterFile
             colUomDesc.Name = "UomDescr";
             colUomDesc.HeaderText = "Description";
             colUomDesc.DataPropertyName = "Description";
-<<<<<<< HEAD
             colUomDesc.Width = 400;
-=======
-            colUomDesc.Width = 300;
->>>>>>> bb85ba528f26412ceaf0c3a4682b52fddb4df36e
             grdUom.Columns.Add(colUomDesc);
 
             var colUomBarcode = new DataGridViewTextBoxColumn();
@@ -245,7 +232,6 @@ namespace GTCosmeticsReWork.MasterFile
             colUomBarcode.Width = 200;
             grdUom.Columns.Add(colUomBarcode);
 
-<<<<<<< HEAD
             var colUomPrice = new DataGridViewTextBoxColumn();
             colUomPrice.Name = "UomPrice";
             colUomPrice.HeaderText = "Unit Price";
@@ -255,8 +241,6 @@ namespace GTCosmeticsReWork.MasterFile
             colUomPrice.DefaultCellStyle.Format = "N2";
             grdUom.Columns.Add(colUomPrice);
 
-=======
->>>>>>> bb85ba528f26412ceaf0c3a4682b52fddb4df36e
             //grdUom.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             #endregion UOM Grid
@@ -264,9 +248,9 @@ namespace GTCosmeticsReWork.MasterFile
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
-            //LoadData();
-            // var dt = DataSupport.ExecuteStoredProcedure("sp_getproductcategories", null);
-            //cbCategory.SetComboBox(dt, "Category", "Id");
+            LoadData();
+            var dt = DataSupport.ExecuteStoredProcedure("sp_getproductcategories", null);
+            cbCategory.SetComboBox(dt, "Category", "Id");
         }
 
         private void LoadData()
